@@ -84,6 +84,7 @@
         this.template( templateFiles + 'common/app/index.html','app/index.html' );
         this.template( templateFiles + 'common/app/namespace.js','app/namespace.js' );
         this.template( templateFiles + 'common/app/TODO.md','app/TODO.md' );
+        this.copy( templateFiles + 'common/app/favicon.ico','app/favicon.ico' );
     };
 
     /**

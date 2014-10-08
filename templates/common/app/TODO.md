@@ -1,5 +1,5 @@
 ##Good job.  
-##herewego is ready for you to start developing.
+##<%= appName %> is ready for you to start developing.
 ###Check out these next steps
 
 ------

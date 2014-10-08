@@ -8,6 +8,7 @@ module.exports = function(grunt) {
 	// Time how long tasks take. Can help when optimizing build times
 	require('time-grunt')(grunt);
 
+	var pushState = require('grunt-connect-pushstate/lib/utils').pushState;
 
 
 	var appConfig = {
@@ -18,6 +19,28 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		// Project settings
 		yeoman: appConfig,
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        concat: {
+            options: {
+                separator: ';'
+            },
+            dist: {
+                src: ['src/**/*.js'],
+                dest: 'dist/<%= pkg.name %>.js'
+            }
+        },
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+            },
+            dist: {
+                files: {
+                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                }
+            }
+        },
 
 		// Watches files for changes and runs tasks based on the changed files
 		watch: {
@@ -131,6 +154,13 @@ module.exports = function(grunt) {
 			}
 		},
 
+        cssmin: {
+            minify: {
+                src: '.tmp/styles/app.css',
+                dest: 'app/styles/app.min.css'
+            }
+        },
+
 		// Add vendor prefixed styles
 		autoprefixer: {
 			options: {
@@ -159,6 +189,7 @@ module.exports = function(grunt) {
 					open: true,
 					middleware: function (connect) {
 						return [
+							pushState(),
 							connect.static('.tmp'),
 							connect().use(
 								'/bower_components',
@@ -202,7 +233,7 @@ module.exports = function(grunt) {
 		useminPrepare: {
 			html: '/index.html',
 			options: {
-				dest: 'app',
+				dest: 'dist/<%= pkg.name %>.js',
 				flow: {
 					html: {
 						steps: {
@@ -229,9 +260,9 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand: true,
-					cwd: '.tmp/concat/scripts',
+					cwd: 'dist/<%= pkg.name %>.js',
 					src: ['*.js', '!oldieshim.js'],
-					dest: '.tmp/concat/scripts'
+					dest: 'dist/<%= pkg.name %>.js'
 				}]
 			}
 		},
@@ -371,26 +402,12 @@ module.exports = function(grunt) {
 	  grunt.registerTask('build', [
 		  'clean:dist',
 		  'less',
-		  'wiredep',
+		  'cssmin:minify',
+		  'ngtemplates',
 		  'useminPrepare',
 		  'autoprefixer',
-		  'ngtemplates',
-		  'concat',
 		  'ngAnnotate',
-		  'copy:dist',
-		  'copy:styles',
-		  //'cdnify',
-//		  'cssmin',
-//		  'uglify',
-		  'usemin'
-	  ]);
-
-	  grunt.registerTask('dev', [
-		  'clean:dist',
-		  'less',
-		  'wiredep',
-		  'includeSource:dev'
-	  ]);
+      ]);
 
 	  grunt.registerTask('remove_sample', [
           'shell:rm_sample',

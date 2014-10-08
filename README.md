@@ -1,10 +1,4 @@
-##Good job.  
-##herewego is ready for you to start developing.
-###Check out these next steps
 
-------
-
-------
 
 ##Launch your app in the browser
     grunt serve

@@ -12,9 +12,12 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <!-- build:css dist/styles/<%= appName %>.min.css -->
         <!-- bower:css -->
         <!-- endbower -->
         <!-- include: "type": "css", "files": "styles/**/*.css" -->
+        <!-- endbuild -->
+
 
     </head>
     <body ng-app="<%= appName %>">
@@ -22,10 +25,12 @@
         <!-- Add your site or application content here -->
         <div ng-view=""></div>
 
+        <!-- build:js dist/<%= appName %>.min.js -->
         <!-- bower:js -->
         <!-- endbower -->
-
         <!-- include: "type": "js", "files": ["app.js", "components/**/*.js", "!components/**/*spec.js"] -->
+        <!-- endbuild -->
+
 
     </body>
 </html>

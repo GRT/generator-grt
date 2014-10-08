@@ -20,28 +20,41 @@ module.exports = function(grunt) {
 		// Project settings
 		yeoman: appConfig,
 
-        pkg: grunt.file.readJSON('package.json'),
-
         concat: {
             options: {
                 separator: ';'
             },
-            dist: {
-                src: ['src/**/*.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+            app: {
+                src: ['app/app.js','app/components/**/*.js'],
+                dest: '.tmp/<%= appName %>.js'
+            },
+            vendor: {
+                src: ['app/bower_components/**/*.min.js','.tmp/<%= appName %>.min.js'],
+                dest: 'dist/<%= appName %>.min.js'
             }
         },
         uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-            },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'dist/<%= appName %>.min.js': ['.tmp/<%= appName %>.min.js']
                 }
             }
         },
 
+        useminPrepare: {
+            html: 'app/index.html',
+            options: {
+                dest: 'yeoman.dist'
+            }
+        },
+
+        usemin: {
+            options: {
+                dirs: ['dist']
+            },
+            html: ['**/*.html'],
+            css: ['**/*.css']
+        },
 		// Watches files for changes and runs tasks based on the changed files
 		watch: {
 			bower: {
@@ -127,7 +140,7 @@ module.exports = function(grunt) {
 					dot: true,
 					src: [
 						'.tmp',
-						'appdist/{,*/}*',
+						'dist/{,*/}*',
 						'!app/.git*'
 					]
 				}]
@@ -157,7 +170,7 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 src: '.tmp/styles/app.css',
-                dest: 'app/styles/app.min.css'
+                dest: 'dist/styles/app.min.css'
             }
         },
 
@@ -189,7 +202,6 @@ module.exports = function(grunt) {
 					open: true,
 					middleware: function (connect) {
 						return [
-							pushState(),
 							connect.static('.tmp'),
 							connect().use(
 								'/bower_components',
@@ -226,43 +238,15 @@ module.exports = function(grunt) {
 			}
 		},
 
-
-		// Reads HTML for usemin blocks to enable smart builds that automatically
-		// concat, minify and revision files. Creates configurations in memory so
-		// additional tasks can operate on them
-		useminPrepare: {
-			html: '/index.html',
-			options: {
-				dest: 'dist/<%= pkg.name %>.js',
-				flow: {
-					html: {
-						steps: {
-							js: ['concat', 'uglifyjs'],
-							css: ['cssmin']
-						},
-						post: {}
-					}
-				}
-			}
-		},
-
-		// Performs rewrites based on filerev and the useminPrepare configuration
-		usemin: {
-			html: ['app/{,*/}*.html'],
-			css: ['app/styles/{,*/}*.css'],
-			options: {
-				assetsDirs: ['app','app/images']
-			}
-		},
 		// ng-annotate tries to make the code safe for minification automatically
 		// by using the Angular long form for dependency injection.
 		ngAnnotate: {
 			dist: {
 				files: [{
 					expand: true,
-					cwd: 'dist/<%= pkg.name %>.js',
+					cwd: 'dist/<%= appName %>.js',
 					src: ['*.js', '!oldieshim.js'],
-					dest: 'dist/<%= pkg.name %>.js'
+					dest: 'dist/<%= appName %>.js'
 				}]
 			}
 		},
@@ -282,14 +266,10 @@ module.exports = function(grunt) {
 					expand: true,
 					dot: true,
 					cwd: 'app',
-					dest: 'app',
-					src: [
-						'*.{ico,png,txt,md}',
-						'.htaccess',
-						'*.html',
-						'./**/*.html'
-						//'images/{,*/}*.{webp}',
-						//'fonts/*'
+					dest: 'dist',
+                    src: [
+                        '*.html',
+						'*.{ico,png,txt,md}'
 					]
 				}, {
 					expand: true,
@@ -302,20 +282,9 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					flatten:true,
-					dest: 'app/styles',
+					dest: 'dist/styles',
 					src: ['.tmp/**/*.css']
 				}]
-			}
-		},
-		// Renames files for browser caching purposes
-		filerev: {
-			dist: {
-				src: [
-					'app/scripts/{,*/}*.js',
-					'app/styles/{,*/}*.css',
-					'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-					'app/styles/fonts/*'
-				]
 			}
 		},
 
@@ -402,11 +371,18 @@ module.exports = function(grunt) {
 	  grunt.registerTask('build', [
 		  'clean:dist',
 		  'less',
-		  'cssmin:minify',
-		  'ngtemplates',
-		  'useminPrepare',
-		  'autoprefixer',
+          'wiredep',
+          'includeSource:dev',
+          'copy:dist',
 		  'ngAnnotate',
+          'useminPrepare',
+          'cssmin:minify',
+          'concat',
+          'uglify',
+          'concat',
+		  'usemin',
+		  'ngtemplates',
+		  'autoprefixer'
       ]);
 
 	  grunt.registerTask('remove_sample', [

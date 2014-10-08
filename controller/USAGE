@@ -1,0 +1,10 @@
+Description:
+    Creates a new Angular controller
+
+Example:
+    yo grtangular:controller thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.controller.js
+        app/components/thing/thing.controller.spec.js
+        app/components/thing/thing.controller.less

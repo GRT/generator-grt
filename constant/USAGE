@@ -1,0 +1,10 @@
+Description:
+    Creates a new AngularJS constant.
+    Docs: http://docs.angularjs.org/guide/dev_guide.services.creating_services
+
+Example:
+    yo grtangular:constant thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.constant.js
+        app/components/thing/thing.constant.spec.js

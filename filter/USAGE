@@ -1,0 +1,10 @@
+Description:
+    Creates a new AngularJS filter
+
+Example:
+    yo grtangular:filter thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.filter.js
+        app/components/thing/thing.filter.spec.js
+

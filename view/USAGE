@@ -1,0 +1,8 @@
+Description:
+    Creates a new AngularJS view
+
+Example:
+    yo grtangular:view thing
+
+    This will create:
+        app/components/thing/thing.html

@@ -1,0 +1,10 @@
+Description:
+    Creates a new AngularJS service.
+    Docs: http://docs.angularjs.org/guide/dev_guide.services.creating_services
+
+Example:
+    yo grtangular:value thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.value.js
+        app/components/thing/thing.value.spec.js

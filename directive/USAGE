@@ -1,0 +1,10 @@
+Description:
+    Creates a new Angular directive
+
+Example:
+    yo grtangular:directive thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.directive.js
+        app/components/thing/thing.directive.spec.js
+        app/components/thing/thing.directive.less

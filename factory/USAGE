@@ -1,0 +1,10 @@
+Description:
+    Creates a new AngularJS service.
+    Docs: http://docs.angularjs.org/guide/dev_guide.services.creating_services
+
+Example:
+    yo grtangular:factory thing [--coffee]
+
+    This will create:
+        app/components/thing/thing.factory.js
+        app/components/thing/thing.factory.spec.js

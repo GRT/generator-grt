@@ -1,0 +1,27 @@
+<div class="example">
+    <div id="preview"> </div>
+    <script>
+        var xmlhttp = new XMLHttpRequest(),
+                mdFile,
+                $ = function (id) { return document.getElementById(id); };
+
+        xmlhttp.onreadystatechange=function(){
+            if ( xmlhttp.readyState === 4 && xmlhttp.status === 200 ){
+                mdFile = xmlhttp.responseText;
+            }
+            new Editor(mdFile, $("preview"));
+        };
+
+        xmlhttp.open("GET","TODO.md",true);
+        xmlhttp.send();
+
+        function Editor(input, preview) {
+            this.update = function () {
+                preview.innerHTML = markdown.toHTML(input);
+            };
+            this.update();
+        }
+    </script>
+</div>
+<sample-directive></sample-directive>
+

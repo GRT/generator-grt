@@ -34,9 +34,5 @@
     },
     "devDependencies": {
     },
-    "licenses": [
-        {
-            "type": "MIT"
-        }
-    ]
+    "license": "MIT"
 }

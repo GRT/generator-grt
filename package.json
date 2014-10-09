@@ -1,6 +1,6 @@
 {
     "name": "generator-grt",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Opinionated generator for Angular apps",
     "keywords": [
         "yeoman-generator",
@@ -36,7 +36,7 @@
     },
     "licenses": [
         {
-            "type": "BSD"
+            "type": "MIT"
         }
     ]
 }

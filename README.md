@@ -1,61 +1,80 @@
 ## Usage
 
-Install `generator-grt`:
+```sh
+$ npm install -g generator-grt
+$ mkdir my-new-project && cd $_
+$ yo grt
+$ grunt serve
 ```
-npm install -g generator-grt
-```
+## Stack
 
-Make a new directory, and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
+- AngularJS
+- Lo-dash
+- Grunt, a framework for running tests, compiling stylesheets, creating a production build of your app.
+- Bower, a package manager for the browser making it easy to pull in 3rd party libraries
+- LESS/
+- Automated JavaScript testing stack:
+  - Jasmine
+  - Karma
+  - Protractor
+- Yoeman Generators
+  - generating a new application
+  - generate component
 
-Run `yo grt`
-```
-yo grt
-```
 
-Run `grunt` for building and `grunt serve` for preview
-
-
-
-## Launch your app in the browser
-    grunt serve
-    
-------
 
 ## Concantenate and minify css and js file and build with index.html in /dist directory
-    grunt build
-    
-------
-    
+
+```sh
+$ grunt build
+```    
+
 ## Run ALL tests
-    grunt test
+
+```sh
+$ grunt test
+```    
     
 ## Run Protractor tests
-    grunt e2e
-    
+```sh
+$ grunt e2e
+```   
 ## Run unit tests
-    grunt unittest
-
-------
+```sh
+$ grunt unittest
+```   
     
 ## Create a new component
 ### Subgenerators will create files named per convention and organized by component name 
-    yo grt:controller coolcomponent
-    yo grt:directive coolcomponent
-    yo grt:service coolcomponent
-    yo grt:view coolcomponent
-    yo grt:filter coolcomponent
-    yo grt:constant coolcomponent
-    yo grt:factory coolcomponent
-    yo grt:provider coolcomponent
-    yo grt:value coolcomponent
-        
-##### For adding a subcomponent to an existing component  
-    yo grt:directive coolcomponent/subcomponent
 
-------
+```sh    
+$ yo grt:controller coolcomponent
+$ yo grt:directive coolcomponent
+$ yo grt:service coolcomponent
+$ yo grt:view coolcomponent
+$ yo grt:filter coolcomponent
+$ yo grt:constant coolcomponent
+$ yo grt:factory coolcomponent
+$ yo grt:provider coolcomponent
+$ yo grt:value coolcomponent
+```
+
+##### For adding a subcomponent to an existing component 
+
+```sh    
+$ yo grt:directive coolcomponent/subcomponent
+```
+
+
+## Directory Structure
+
+- `bower_components` Installed third party libraries. Managed by [Bower](http://bower.io/), do not modify directly.
+- `node_modules`
+- `bower.json` Third party libraries
+- `Gruntfile.js` [Grunt](http://gruntjs.com/) build file. 
+- `package.json` Any `npm` dependencies 
+- `README.md`
+
 
 ## Generated App Includes some sample code to demonstrate sytax and style
     app/app.js    
